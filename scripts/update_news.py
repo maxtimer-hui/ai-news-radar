@@ -1877,6 +1877,10 @@ def is_ai_related_record(record: dict[str, Any]) -> bool:
     if site_id in {"aibase", "aihot", "aihubtoday"}:
         return True
 
+    # OPML RSS 源（包括 X/Twitter 账号）默认保留，让用户自己决定看什么
+    if site_id == "opmlrss":
+        return True
+
     has_ai = contains_any_keyword(text, AI_KEYWORDS) or EN_SIGNAL_RE.search(text) is not None
     has_tech = contains_any_keyword(text, TECH_KEYWORDS)
 
